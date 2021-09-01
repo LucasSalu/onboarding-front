@@ -1,20 +1,24 @@
 <template>
   <Card class="card">
-    <template #header>
+    <template #header> </template>
+    <template #title>  {{ colaborador.nome }} <br/>{{colaborador.matricula}}</template>
+
+    <template #content>
+      <div class="competencias">
+        <h5></h5>
+        <h4 class="message" v-for="item in colaborador.competencias" :key="item">
+          {{ item.nome }} - {{ item.nivel }}
+        </h4>
+      </div>
+      <div class="times"></div>
+    </template>
+    <template #footer>
       <Button
         icon="pi pi-pencil"
         label="Editar"
         class="p-button-outlined p-button-warning"
+        @click="this.$emit('teste', colaborador)"
       />
-    </template>
-    <template #title> {{ colaborador.nome }}</template>
-
-    <template #content>
-      <div class="competencias">
-        <h2 >Competencias :</h2>
-        <h4 v-for="item in colaborador.competencias" :key="item"  >{{item.nome}} - {{item.nivel}} </h4>
-      </div>
-      <div class="times"></div>
     </template>
   </Card>
 </template>
@@ -27,7 +31,18 @@ export default {
   components: {
     Card,
   },
+  emits: ["teste"],
   props: ["colaborador"],
+  data() {
+    return {};
+  },
+  methods: {
+    teste() {
+    },
+    mounted(){
+      this.Form = "salu";
+    }
+  },
 };
 </script>
 
@@ -58,6 +73,17 @@ export default {
   background-color: #808080; /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
   border: 3px solid #808080; /* creates padding around scroll thumb */
+}
+.card {
+  text-align: center;
+}
+.message {
+  padding: 4px;
+  border: 2px #9798e9 solid;
+  background-color: #ffffff;
+  color: #9798e9;
+  margin: 3px;
+  border-radius: 10px;
 }
 </style>
 
