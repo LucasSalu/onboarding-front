@@ -29,6 +29,34 @@
     {
       "nome": "Lucas",
       "sobrenome": "Lopes",
+      "matricula": "11231",
+      "competencias": [
+        { "nome": "Excel", "nivel": "Intermediario" },
+        { "nome": "Ingles", "nivel": "Basico" },
+        { "nome": "Vue", "nivel": "Avançado" }
+      ]
+    },
+    {
+      "nome": "Lucas",
+      "sobrenome": "Lopes",
+      "matricula": "11231",
+      "competencias": [
+
+      ]
+    },
+    {
+      "nome": "Lucas",
+      "sobrenome": "Lopes",
+      "matricula": "11231",
+      "competencias": [
+        { "nome": "Excel", "nivel": "Intermediario" },
+        { "nome": "Ingles", "nivel": "Basico" },
+        { "nome": "Vue", "nivel": "Avançado" }
+      ]
+    },
+    {
+      "nome": "Lucas",
+      "sobrenome": "Lopes",
       "matricula": "12342",
       "competencias": [
         { "nome": "Excel", "nivel": "Intermediario" },

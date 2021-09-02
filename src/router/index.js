@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: '/colaboradores',
-    name: 'ColaboradorForm',
+    name: 'ColaboradorList',
     component: ColaboradorList
   },
   {
