@@ -2,8 +2,8 @@
   <div id="nav">
     <router-link to="/colaboradores"><a href=""><img src="../assets/logo.png" alt="" width="80"></a></router-link> 
     <router-link to="/colaboradores"><a>Colaboradores</a></router-link> 
-    <router-link to="/habilidades"><a>Habilidades</a></router-link>
-    <router-link to="/"><a>Projetos</a></router-link>
+    <router-link to="/times"><a>Times</a></router-link>
+    <router-link to="/projetos"><a>Projetos</a></router-link>
   </div>
 </template>
 
