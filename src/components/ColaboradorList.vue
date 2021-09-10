@@ -24,7 +24,12 @@
     </div>
 
     <div class="container-cards">
-      <CardColaborador @detalhes="formEditar" v-for="item in colaborador" :key="item" :colaborador="item"/>
+      <CardColaborador
+        @detalhes="formEditar"
+        v-for="item in colaborador"
+        :key="item"
+        :colaborador="item"
+      />
     </div>
     <Dialog
       header="Cadastrar Colaborador"
@@ -39,7 +44,12 @@
           </div>
           <div class="p-field p-col-12 p-md-12">
             <label for="matricula">Matricula</label>
-            <InputText id="matricula" type="number" v-model="matricula" :disabled="flagEditar" />
+            <InputText
+              id="matricula"
+              type="number"
+              v-model="matricula"
+              :disabled="flagEditar"
+            />
           </div>
           <div class="p-field p-col-5 p-md-5">
             <label for="state">Competência</label>
@@ -64,7 +74,12 @@
           <div class="p-field">
             <label for="state" style="color: white">...</label>
 
-            <Button  label="+" v-on:click="adicionarCompetencia(selectedCompetencia,selectedNivel)" ></Button>
+            <Button
+              label="+"
+              v-on:click="
+                adicionarCompetencia(selectedCompetencia, selectedNivel)
+              "
+            ></Button>
           </div>
           <span class="message" v-for="item in formCompetencias" :key="item">
             {{ item.nome }}: {{ item.nivel }}
@@ -93,7 +108,7 @@
 import CardColaborador from "./cards/CardColaborador.vue";
 import Dialog from "primevue/dialog";
 import Dropdown from "primevue/dropdown";
-import Colaborador from "../services/colaboradores"
+import Colaborador from "../services/colaboradores";
 
 export default {
   name: "ColaboradorList",
@@ -105,19 +120,18 @@ export default {
       filtroCompetencia: "",
       filtroColaborador: "",
       competencias: [],
-      flagEditar:Boolean,
+      flagEditar: Boolean,
 
       //form
       displayBasic: false,
       id: null,
       nome: "",
       matricula: "",
-      formCompetencias:[],
+      formCompetencias: [],
       selectedCompetencia: "",
       selectedNivel: "",
 
       niveis: [
-
         { nivel: "Nenhum" },
         { nivel: "Basico" },
         { nivel: "Intermediario" },
@@ -134,8 +148,17 @@ export default {
   },
   methods: {
     async listarColaboradores() {
-      Colaborador.listar().then(resposta =>
-      this.colaborador = resposta.data );
+      /*       const req = await fetch("http://localhost:8081/hello");
+      const data = await req.json(); */
+
+      try {
+        const response = await fetch("http://localhost:8081/hello");
+        await response.json().then((data) => {
+          console.log(data);
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     async listarCompetencias() {
@@ -151,8 +174,7 @@ export default {
       }
     },
     resetaForm() {
-      this.id = null,
-      this.nome = null;
+      (this.id = null), (this.nome = null);
       this.selectedCompetencia = null;
       this.matricula = null;
       this.selectedNivel = null;
@@ -172,17 +194,17 @@ export default {
 
     formSubmit() {
       const colaborador = {
-      id: this.id,
-      "nome": this.nome,
-      "matricula": this.matricula, 
-      }
-      if(this.flagEditar){
-      Colaborador.editar(colaborador)
-      }else{
-      Colaborador.salvar(colaborador);
+        id: this.id,
+        nome: this.nome,
+        matricula: this.matricula,
+      };
+      if (this.flagEditar) {
+        Colaborador.editar(colaborador);
+      } else {
+        Colaborador.salvar(colaborador);
       }
 
-     this.listarColaboradores();      
+      this.listarColaboradores();
     },
 
     //Form editar
@@ -193,7 +215,6 @@ export default {
       this.matricula = colaborador.matricula;
       this.formCompetencias = colaborador.competencias.slice();
       this.displayBasic = true;
-
     },
     excluircompetencia(habilidade) {
       var index = this.formCompetencias.indexOf(habilidade);
@@ -202,15 +223,13 @@ export default {
       }
       console.log(index);
     },
-    adicionarCompetencia( competencia,  nivel){
-    
-    if(competencia && nivel){
-    var aux = { nome : competencia.nome  , nivel: nivel.nivel} 
-    console.log(nivel)
-    this.formCompetencias.push(aux);
-    }
-
-  },
+    adicionarCompetencia(competencia, nivel) {
+      if (competencia && nivel) {
+        var aux = { nome: competencia.nome, nivel: nivel.nivel };
+        console.log(nivel);
+        this.formCompetencias.push(aux);
+      }
+    },
   },
 
   mounted() {
@@ -251,5 +270,4 @@ export default {
 .mouse-pointer {
   cursor: pointer;
 }
-
 </style>

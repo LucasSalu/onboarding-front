@@ -3,42 +3,17 @@
     {
       "id": 1,
       "nome": "Kaike martins sasdasasdasdads",
-      "matricula": "12345",
-      "competencias": [
-        {
-          "nome": "Python",
-          "nivel": "Avançado"
-        },
-        {
-          "nome": "Word",
-          "nivel": "Bom"
-        },
-        {
-          "nome": "Java",
-          "nivel": "Avançado"
-        }
-      ]
+      "matricula": "12345"
     },
     {
       "id": 2,
       "nome": "Caio 123123",
-      "matricula": "123321",
-      "competencias": []
+      "matricula": "123321"
     },
     {
       "id": 3,
       "nome": "Caio ",
-      "matricula": "123123123",
-      "competencias": [
-        {
-          "nome": "Word",
-          "nivel": "Intermediario"
-        },
-        {
-          "nome": "flutter",
-          "nivel": "Avançado"
-        }
-      ]
+      "matricula": "123123123"
     },
     {
       "id": 4,
