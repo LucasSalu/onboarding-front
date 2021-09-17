@@ -151,14 +151,16 @@ export default {
       /*       const req = await fetch("http://localhost:8081/hello");
       const data = await req.json(); */
 
-      try {
-        const response = await fetch("http://localhost:8081/hello");
+     this.colaborador = (await Colaborador.listar()).data;
+
+/*       try {
+        const response = await fetch("http://localhost:8080/colaboradores");
         await response.json().then((data) => {
           console.log(data);
         });
       } catch (err) {
         console.log(err);
-      }
+      } */
     },
 
     async listarCompetencias() {
@@ -166,12 +168,10 @@ export default {
       const data = await req.json();
       this.competencias = data;
     },
-    mudancaFiltro() {
-      if (this.filtroColaborador) {
-        console.log("asd");
-      } else if (this.filtroCompetencia) {
-        console.log("asd");
-      }
+
+    mudancaFiltro() { 
+       Colaborador.listarPorNome(this.filtroColaborador).then(data =>
+       this.colaborador = data.data)
     },
     resetaForm() {
       (this.id = null), (this.nome = null);
@@ -194,7 +194,7 @@ export default {
 
     formSubmit() {
       const colaborador = {
-        id: this.id,
+        idcolaborador: this.id,
         nome: this.nome,
         matricula: this.matricula,
       };
@@ -210,10 +210,10 @@ export default {
     //Form editar
     formEditar(colaborador) {
       this.flagEditar = true;
-      this.id = colaborador.id;
+      this.id = colaborador.idcolaborador;
       this.nome = colaborador.nome;
       this.matricula = colaborador.matricula;
-      this.formCompetencias = colaborador.competencias.slice();
+   // this.formCompetencias = colaborador.competencias.slice();
       this.displayBasic = true;
     },
     excluircompetencia(habilidade) {

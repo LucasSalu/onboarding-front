@@ -74,7 +74,12 @@
           @click="fecharForm"
           class="p-button-text"
         />
-        <Button label="Cadastrar" icon="pi pi-check" autofocus />
+        <Button
+          label="Cadastrar"
+          icon="pi pi-check"
+          autofocus
+          @click="formSubmit()"
+        />
       </template>
     </Dialog>
   </div>
@@ -83,6 +88,7 @@
 <script>
 import Dropdown from "primevue/dropdown";
 import CardTime from "./cards/CardTime.vue";
+import Time from "../services/times";
 
 export default {
   name: "TimeList",
@@ -98,6 +104,7 @@ export default {
       displayBasic: false,
       time: null,
       colaboradores: null,
+      flagEditar: Boolean,
 
       //formulario
       formNome: null,
@@ -106,184 +113,21 @@ export default {
       formValidatorMatricula: null,
       colaboradoresTime: null,
 
-      times: [
-        {
-          id: 1,
-          nome: "Protheus",
-          colaboradores: [
-            {
-              nome: "Lucas",
-              matricula: "11231",
-              competencias: [
-                { nome: "Excel", nivel: "Intermediario" },
-                { nome: "Ingles", nivel: "Basico" },
-                { nome: "Vue", nivel: "Avançado" },
-              ],
-            },
-          ],
-          projetos: [
-            {
-              id: 1,
-              nome: "Alfa",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 2,
-              nome: "Omega",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 3,
-              nome: "Beta",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-          ],
-        },
-        {
-          id: 1,
-          nome: "Protheus",
-          colaboradores: [
-            {
-              nome: "Lucas",
-              matricula: "11231",
-              competencias: [
-                { nome: "Excel", nivel: "Intermediario" },
-                { nome: "Ingles", nivel: "Basico" },
-                { nome: "Vue", nivel: "Avançado" },
-              ],
-            },
-          ],
-          projetos: [
-            {
-              id: 1,
-              nome: "Alfa",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 2,
-              nome: "Omega",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 3,
-              nome: "Beta",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-          ],
-        },
-        {
-          id: 1,
-          nome: "Protheus",
-          colaboradores: [
-            {
-              nome: "Lucas",
-              matricula: "11231",
-              competencias: [
-                { nome: "Excel", nivel: "Intermediario" },
-                { nome: "Ingles", nivel: "Basico" },
-                { nome: "Vue", nivel: "Avançado" },
-              ],
-            },
-          ],
-          projetos: [
-            {
-              id: 1,
-              nome: "Alfa",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 2,
-              nome: "Omega",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 3,
-              nome: "Beta",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-          ],
-        },
-        {
-          id: 1,
-          nome: "Protheus",
-          colaboradores: [
-            {
-              nome: "Lucas",
-              matricula: "11231",
-              competencias: [
-                { nome: "Excel", nivel: "Intermediario" },
-                { nome: "Ingles", nivel: "Basico" },
-                { nome: "Vue", nivel: "Avançado" },
-              ],
-            },
-          ],
-          projetos: [
-            {
-              id: 1,
-              nome: "Alfa",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 2,
-              nome: "Omega",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 3,
-              nome: "Beta",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-          ],
-        },
-        {
-          id: 1,
-          nome: "Protheus",
-          colaboradores: [
-            {
-              nome: "Lucas",
-              matricula: "11231",
-              competencias: [
-                { nome: "Excel", nivel: "Intermediario" },
-                { nome: "Ingles", nivel: "Basico" },
-                { nome: "Vue", nivel: "Avançado" },
-              ],
-            },
-          ],
-          projetos: [
-            {
-              id: 1,
-              nome: "Alfa",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 2,
-              nome: "Omega",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-            {
-              id: 3,
-              nome: "Beta",
-              competencias: [{ nome: "Vue", nivelRequirido: "Avançado" }],
-            },
-          ],
-        },
-      ],
+      times: [],
     };
   },
 
   methods: {
-    async getColaboradores() {
-      const req = await fetch("http://localhost:3000/colaborador");
-      const data = await req.json();
-      this.colaboradores = data;
-      console.log(this.colaboradores);
+    async getTimes() {
+      this.times = (await Time.listar()).data;
     },
-    mudancaFiltro() {
-      console.log("mudancaFiltro");
+    async mudancaFiltro() {
+      this.times  = (await Time.listarPorNome(this.filtroProjeto)).data;
     },
     formEditar(time) {
+      this.flagEditar = true;
       this.formNome = time.nome;
-      this.formCodigo = time.id;
+      this.formCodigo = time.idtime;
       this.colaboradoresTime = time.colaboradores;
       this.displayBasic = true;
     },
@@ -291,6 +135,7 @@ export default {
     abrirForm() {
       this.resetarForm();
       this.displayBasic = true;
+      this.flagEditar = false;
     },
     fecharForm() {
       this.resetarForm();
@@ -317,9 +162,25 @@ export default {
         this.formCompetencias.push(aux);
       }
     },
+    formSubmit() {
+      var time = {};
+      if (this.flagEditar) {
+        time = {
+          idtime: this.formCodigo,
+          nome: this.formNome,
+        };
+        Time.editar(time);
+      } else {
+        time = {
+          idtime: null,
+          nome: this.formNome,
+        };
+        Time.salvar(time);
+      }
+    },
   },
   mounted() {
-    this.getColaboradores();
+    this.getTimes();
   },
 };
 </script>
@@ -356,3 +217,6 @@ export default {
   cursor: pointer;
 }
 </style>
+
+
+	
