@@ -1,112 +1,41 @@
 {
   "colaborador": [
     {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "matricula": "12345",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario"},
-        { "nome": "Ingles", "nivel": "Basico"},
-        { "nome": "Vue", "nivel": "Avançado" },
-        { "nome": "Vue", "nivel": "Avançado" },
-        { "nome": "Vue", "nivel": "Avançado" },
-        { "nome": "Vue", "nivel": "Avançado" },
-        { "nome": "Vue", "nivel": "Avançado" },
-        { "nome": "Vue", "nivel": "Avançado" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
+      "id": 1,
+      "nome": "Kaike martins",
+      "matricula": "12345"
     },
     {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "matricula": "11231",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
+      "id": 2,
+      "nome": "Caio 123123",
+      "matricula": "123321"
     },
     {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "matricula": "11231",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
+      "id": 3,
+      "nome": "Caio ",
+      "matricula": "123123123"
     },
     {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "matricula": "11231",
-      "competencias": [
-
-      ]
-    },
-    {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "matricula": "11231",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
-    },
-    {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "matricula": "12342",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
-    },
-    {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
-    },
-    {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
-    },
-    {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
-    },
-    {
-      "nome": "Lucas",
-      "sobrenome": "Lopes",
-      "competencias": [
-        { "nome": "Excel", "nivel": "Intermediario" },
-        { "nome": "Ingles", "nivel": "Basico" },
-        { "nome": "Vue", "nivel": "Avançado" }
-      ]
+      "id": 4,
+      "nome": "caio",
+      "matricula": "123123132"
     }
-    
   ],
   "competencias": [
-    { "nome": "Excel" },
-    { "nome": "Word" },
-    { "nome": "Python" },
-    { "nome": "Java" },
-    { "nome": "flutter" }
+    {
+      "nome": "Excel"
+    },
+    {
+      "nome": "Word"
+    },
+    {
+      "nome": "Python"
+    },
+    {
+      "nome": "Java"
+    },
+    {
+      "nome": "flutter"
+    }
   ]
 }

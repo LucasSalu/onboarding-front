@@ -25,7 +25,7 @@
 
     <div class="container-cards">
       <CardColaborador
-        @teste="formEditar"
+        @detalhes="formEditar"
         v-for="item in colaborador"
         :key="item"
         :colaborador="item"
@@ -44,7 +44,12 @@
           </div>
           <div class="p-field p-col-12 p-md-12">
             <label for="matricula">Matricula</label>
-            <InputText id="matricula" type="number" v-model="matricula" />
+            <InputText
+              id="matricula"
+              type="number"
+              v-model="matricula"
+              :disabled="flagEditar"
+            />
           </div>
           <div class="p-field p-col-5 p-md-5">
             <label for="state">Competência</label>
@@ -69,7 +74,12 @@
           <div class="p-field">
             <label for="state" style="color: white">...</label>
 
-            <Button  label="+" v-on:click="adicionarCompetencia(selectedCompetencia,selectedNivel)" ></Button>
+            <Button
+              label="+"
+              v-on:click="
+                adicionarCompetencia(selectedCompetencia, selectedNivel)
+              "
+            ></Button>
           </div>
           <span class="message" v-for="item in formCompetencias" :key="item">
             {{ item.nome }}: {{ item.nivel }}
@@ -87,7 +97,7 @@
         <Button
           label="Cadastrar"
           icon="pi pi-check"
-          v-on:click="formSubmit"
+          @click="formSubmit"
           autofocus
         />
       </template>
@@ -95,10 +105,10 @@
   </div>
 </template>
 <script>
-import CardColaborador from "./CardColaborador.vue";
-//import ColaboradorForm from "./ColaboradorForm.vue";
+import CardColaborador from "./cards/CardColaborador.vue";
 import Dialog from "primevue/dialog";
 import Dropdown from "primevue/dropdown";
+import Colaborador from "../services/colaboradores";
 
 export default {
   name: "ColaboradorList",
@@ -110,12 +120,14 @@ export default {
       filtroCompetencia: "",
       filtroColaborador: "",
       competencias: [],
+      flagEditar: Boolean,
 
       //form
       displayBasic: false,
+      id: null,
       nome: "",
       matricula: "",
-      formCompetencias:[],
+      formCompetencias: [],
       selectedCompetencia: "",
       selectedNivel: "",
 
@@ -135,26 +147,34 @@ export default {
     Dropdown,
   },
   methods: {
-    async getColaboradores() {
-      const req = await fetch("http://localhost:3000/colaborador");
-      const data = await req.json();
-      this.colaborador = data;
+    async listarColaboradores() {
+      /*       const req = await fetch("http://localhost:8081/hello");
+      const data = await req.json(); */
+
+     this.colaborador = (await Colaborador.listar()).data;
+
+/*       try {
+        const response = await fetch("http://localhost:8080/colaboradores");
+        await response.json().then((data) => {
+          console.log(data);
+        });
+      } catch (err) {
+        console.log(err);
+      } */
     },
 
-    async getCompetencias() {
+    async listarCompetencias() {
       const req = await fetch("http://localhost:3000/competencias");
       const data = await req.json();
       this.competencias = data;
     },
-    mudancaFiltro() {
-      if (this.filtroColaborador) {
-        console.log("asd");
-      } else if (this.filtroCompetencia) {
-        console.log("asd");
-      }
+
+    mudancaFiltro() { 
+       Colaborador.listarPorNome(this.filtroColaborador).then(data =>
+       this.colaborador = data.data)
     },
     resetaForm() {
-      this.nome = null;
+      (this.id = null), (this.nome = null);
       this.selectedCompetencia = null;
       this.matricula = null;
       this.selectedNivel = null;
@@ -163,6 +183,7 @@ export default {
 
     openForm() {
       this.resetaForm();
+      this.flagEditar = false;
       this.displayBasic = true;
     },
 
@@ -170,17 +191,30 @@ export default {
       this.resetaForm();
       this.displayBasic = false;
     },
+
     formSubmit() {
-      console.log("submit");
+      const colaborador = {
+        idcolaborador: this.id,
+        nome: this.nome,
+        matricula: this.matricula,
+      };
+      if (this.flagEditar) {
+        Colaborador.editar(colaborador);
+      } else {
+        Colaborador.salvar(colaborador);
+      }
+
+      this.listarColaboradores();
     },
 
     //Form editar
     formEditar(colaborador) {
+      this.flagEditar = true;
+      this.id = colaborador.idcolaborador;
       this.nome = colaborador.nome;
       this.matricula = colaborador.matricula;
-      this.formCompetencias = colaborador.competencias.slice();
+   // this.formCompetencias = colaborador.competencias.slice();
       this.displayBasic = true;
-      console.log(colaborador);
     },
     excluircompetencia(habilidade) {
       var index = this.formCompetencias.indexOf(habilidade);
@@ -189,20 +223,18 @@ export default {
       }
       console.log(index);
     },
-    adicionarCompetencia( competencia,  nivel){
-    
-    if(competencia && nivel){
-    var aux = { nome : competencia.nome  , nivel: nivel.nivel} 
-    console.log(nivel)
-    this.formCompetencias.push(aux);
-    }
-
-  },
+    adicionarCompetencia(competencia, nivel) {
+      if (competencia && nivel) {
+        var aux = { nome: competencia.nome, nivel: nivel.nivel };
+        console.log(nivel);
+        this.formCompetencias.push(aux);
+      }
+    },
   },
 
   mounted() {
-    this.getColaboradores();
-    this.getCompetencias();
+    this.listarColaboradores();
+    this.listarCompetencias();
   },
 };
 </script>
@@ -238,5 +270,4 @@ export default {
 .mouse-pointer {
   cursor: pointer;
 }
-
 </style>
