@@ -4,6 +4,7 @@
     <router-link to="/colaboradores"><a>Colaboradores</a></router-link> 
     <router-link to="/times"><a>Times</a></router-link>
     <router-link to="/projetos"><a>Projetos</a></router-link>
+    <router-link to="/competencias"><a>Competencias</a></router-link>
   </div>
 </template>
 

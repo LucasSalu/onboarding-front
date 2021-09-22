@@ -148,19 +148,7 @@ export default {
   },
   methods: {
     async listarColaboradores() {
-      /*       const req = await fetch("http://localhost:8081/hello");
-      const data = await req.json(); */
-
      this.colaborador = (await Colaborador.listar()).data;
-
-/*       try {
-        const response = await fetch("http://localhost:8080/colaboradores");
-        await response.json().then((data) => {
-          console.log(data);
-        });
-      } catch (err) {
-        console.log(err);
-      } */
     },
 
     async listarCompetencias() {

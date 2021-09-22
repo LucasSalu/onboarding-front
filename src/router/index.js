@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import ColaboradorList from "../components/ColaboradorList"
 import ProjetoList from "../components/ProjetoList"
 import TimeList from "../components/TimeList"
-
+import Competencias from "../components/Competencias"
 
 const routes = [
   {
@@ -25,6 +25,11 @@ const routes = [
     path: '/projetos',
     name: 'ProjetoList',
     component: ProjetoList
+  },
+  {
+    path: '/competencias',
+    name: 'Competencias',
+    component: Competencias
   },
   {
     path: '/about',
