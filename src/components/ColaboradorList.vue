@@ -1,6 +1,7 @@
 <template>
   <div class="pagina">
     <div>
+      <!-- div referencia aos filtros  -->
       <h1>Colaboradores</h1>
       <span class="p-input-icon-left">
         <i class="pi pi-search" />
@@ -24,13 +25,15 @@
     </div>
 
     <div class="container-cards">
+      <!-- Onde os card são iterados passando como Props cada item do array de colaboradores -->
       <CardColaborador
         @detalhes="formEditar"
-        v-for="item in colaborador"
-        :key="item"
+        v-for="item in this.todosColaboradores"
+        :key="item.idcolaborador"
         :colaborador="item"
       />
     </div>
+    <!-- Dialog do formulario -->
     <Dialog
       header="Cadastrar Colaborador"
       :visible="displayBasic"
@@ -109,11 +112,12 @@ import CardColaborador from "./cards/CardColaborador.vue";
 import Dialog from "primevue/dialog";
 import Dropdown from "primevue/dropdown";
 import Colaborador from "../services/colaboradores";
-
+import { mapGetters } from "vuex";
 export default {
   name: "ColaboradorList",
   data() {
     return {
+      //lista dos colaboradores
       colaborador: [],
 
       //filtro
@@ -140,33 +144,20 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters(["todosColaboradores"]),
+  },
+
   components: {
     CardColaborador,
-    //ColaboradorForm,
     Dialog,
     Dropdown,
   },
+
   methods: {
-    async listarColaboradores() {
-     this.colaborador = (await Colaborador.listar()).data;
-    },
-
-    async listarCompetencias() {
-      const req = await fetch("http://localhost:3000/competencias");
-      const data = await req.json();
-      this.competencias = data;
-    },
-
-    mudancaFiltro() { 
-       Colaborador.listarPorNome(this.filtroColaborador).then(data =>
-       this.colaborador = data.data)
-    },
-    resetaForm() {
-      (this.id = null), (this.nome = null);
-      this.selectedCompetencia = null;
-      this.matricula = null;
-      this.selectedNivel = null;
-      this.formCompetencias = [];
+    //Função referente a alteração do Filtro de busca por nome e por Habilidade
+    mudancaFiltro() {
+      this.$store.commit("setColaboradoresbyName", this.filtroColaborador);
     },
 
     openForm() {
@@ -180,6 +171,14 @@ export default {
       this.displayBasic = false;
     },
 
+    resetaForm() {
+      (this.id = null), (this.nome = null);
+      this.selectedCompetencia = null;
+      this.matricula = null;
+      this.selectedNivel = null;
+      this.formCompetencias = [];
+    },
+
     formSubmit() {
       const colaborador = {
         idcolaborador: this.id,
@@ -191,8 +190,12 @@ export default {
       } else {
         Colaborador.salvar(colaborador);
       }
-
-      this.listarColaboradores();
+      console.log(this.todosColaboradores[0].competencias[0]);
+      this.todosColaboradores.forEach(element => { element.competencias.forEach(comp => {console.log(comp)})
+        
+      });
+      this.$store.dispatch("setColaboradoresAsync"); //atualiza lista de card de colaboradores
+      
     },
 
     //Form editar
@@ -201,9 +204,10 @@ export default {
       this.id = colaborador.idcolaborador;
       this.nome = colaborador.nome;
       this.matricula = colaborador.matricula;
-   // this.formCompetencias = colaborador.competencias.slice();
+      // this.formCompetencias = colaborador.competencias.slice();
       this.displayBasic = true;
     },
+
     excluircompetencia(habilidade) {
       var index = this.formCompetencias.indexOf(habilidade);
       if (index > -1) {
@@ -221,8 +225,7 @@ export default {
   },
 
   mounted() {
-    this.listarColaboradores();
-    this.listarCompetencias();
+    this.$store.commit("setColaboradores");
   },
 };
 </script>

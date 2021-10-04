@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build", 
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "watch": "vue-cli-service build --mode=development --watch --dest C:/Users/tc.luslopes/eclipse-workspace/onboarding/src/main/resources/META-INF/resources",
     "prod": "vue-cli-service build --dest C:/Users/tc.luslopes/eclipse-workspace/onboarding/src/main/resources/META-INF/resources"
@@ -18,7 +18,8 @@
     "primevue": "^3.6.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuelidate": "^0.7.6"
+    "vuelidate": "^0.7.6",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

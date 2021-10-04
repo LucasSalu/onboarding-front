@@ -2,11 +2,11 @@ import { http } from "./config"
 
 export default {
 
-    listar: () => {
-        return http.get('colaboradores');
+    listar: async () => {
+        return  ( await http.get('colaboradores')).data;
     },
-    listarPorNome: (nome) => {
-        return http.get('colaboradores/'+nome);
+    listarPorNome:async (nome) => {
+        return ( await http.get('colaboradores/'+nome)).data;
     },
     
     salvar: (colaborador) => {
